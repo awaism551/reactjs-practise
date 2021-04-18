@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { hot } from "react-hot-loader/root";
 import "./index.css";
 
 const Square = (props) => {
@@ -99,7 +100,7 @@ class Game extends React.Component {
     if (winner) {
       status = "Winner: " + winner;
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = "test again Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
     return (
@@ -142,3 +143,4 @@ function calculateWinner(squares) {
 // ========================================
 
 ReactDOM.render(<Game />, document.getElementById("root"));
+export default hot(Game);
