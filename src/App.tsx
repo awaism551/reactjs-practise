@@ -1,8 +1,18 @@
 import React from "react";
 import "./App.scss";
 
-class App extends React.Component {
-  constructor(props) {
+interface TodoProps {}
+interface TodoState {
+  todos: Todo[];
+  inputValue: string;
+}
+interface Todo {
+  id: number;
+  desc: string;
+}
+
+class App extends React.Component<TodoProps, TodoState> {
+  constructor(props: TodoProps) {
     super(props);
     this.state = {
       todos: [],
@@ -10,13 +20,13 @@ class App extends React.Component {
     };
   }
 
-  handleInputChange = (event) => {
+  handleInputChange = (event: { target: HTMLInputElement }) => {
     this.setState({
       inputValue: event.target.value,
     });
   };
 
-  addTodo = (event) => {
+  addTodo = (event: any) => {
     var desc = this.state.inputValue;
     if (desc) {
       var id = this.state.todos[this.state.todos.length - 1]?.id + 1;
@@ -36,7 +46,7 @@ class App extends React.Component {
     event.preventDefault();
   };
 
-  handleDelete = (id) => {
+  handleDelete = (id: number) => {
     var todos = this.state.todos;
     todos = todos.filter((todo) => todo.id !== id);
     this.setState({
