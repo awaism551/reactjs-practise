@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,24 +18,30 @@ class App extends React.Component {
 
   addTodo = (event) => {
     var desc = this.state.inputValue;
-    var id = this.state.todos[this.state.todos.length - 1]?.id + 1;
-    if (!id) {
-      id = 1;
+    if (desc) {
+      var id = this.state.todos[this.state.todos.length - 1]?.id + 1;
+      if (!id) {
+        id = 1;
+      }
+      var todos = this.state.todos;
+      todos.push({
+        id,
+        desc,
+      });
+      this.setState({
+        todos,
+        inputValue: "",
+      });
     }
-    var todos = this.state.todos;
-    todos.push({
-      id,
-      desc,
-    });
-    this.setState({
-      todos,
-      inputValue: "",
-    });
     event.preventDefault();
   };
 
   handleDelete = (id) => {
-    console.log(`id to delete is ${id}`);
+    var todos = this.state.todos;
+    todos = todos.filter((todo) => todo.id !== id);
+    this.setState({
+      todos,
+    });
   };
 
   render() {
@@ -59,6 +65,7 @@ class App extends React.Component {
               type="text"
               value={this.state.inputValue}
               onChange={this.handleInputChange}
+              autoFocus
             />
             <button type="submit">Add</button>
           </div>
